@@ -814,14 +814,43 @@ footer {
 }
 .footer-links a:hover { color: var(--gold-light); }
 
+.footer-reg {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  width: 100%;
+}
+.footer-reg span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(201,168,76,0.6);
+  text-transform: uppercase;
+}
+
 .footer-copy {
   font-size: 0.75rem;
   color: rgba(255,255,255,0.3);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   width: 100%;
   text-align: center;
+  line-height: 1.8;
 }
+
+.footer-designer {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.2);
+}
+.footer-designer a {
+  color: var(--gold);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.footer-designer a:hover { opacity: 1; }
 
 /* ─── Toast Notification ─── */
 .toast {
