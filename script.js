@@ -237,9 +237,9 @@ function showToast(message) {
   if (eventsSection) {
     eventsSection.addEventListener('click', (e) => {
       if (e.target.closest('a, button')) return;
-      const card = e.target.closest('.event-card');
-      if (!card) return;
-      const img = card.querySelector('img');
+      const wrap = e.target.closest('.event-img-wrap');
+      if (!wrap) return;
+      const img = wrap.querySelector('img');
       if (img && img.src) openLightbox(img.src, img.alt);
     });
   }
