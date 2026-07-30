@@ -212,6 +212,43 @@ function showToast(message) {
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
+/* ─── Event Image Lightbox ─── */
+(function() {
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+  if (!lightbox || !lightboxImg || !lightboxClose) return;
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { if (!lightbox.classList.contains('open')) lightboxImg.src = ''; }, 300);
+  }
+
+  /* Event delegation — one listener on the grid, ignore "Book Now" clicks */
+  const eventsSection = document.getElementById('events');
+  if (eventsSection) {
+    eventsSection.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      const card = e.target.closest('.event-card');
+      if (!card) return;
+      const img = card.querySelector('img');
+      if (img && img.src) openLightbox(img.src, img.alt);
+    });
+  }
+
+  lightboxClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+})();
+
 /* ─── Cylinder Carousel ─── */
 (function() {
   const track   = document.getElementById('cylinderTrack');

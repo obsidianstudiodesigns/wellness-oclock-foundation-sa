@@ -938,8 +938,12 @@ footer {
   background: var(--charcoal);
   overflow: hidden;
 }
+#core-services .section-header {
+  position: relative;
+  z-index: 5;
+}
 #core-services .section-header h2 { color: #fff; }
-#core-services .section-sub { color: rgba(255,255,255,0.5); }
+#core-services .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto 1rem; }
 
 .cylinder-stage {
   position: relative;
@@ -948,6 +952,7 @@ footer {
   margin: 0 auto;
   perspective: 1200px;
   height: 420px;
+  overflow: hidden;
 }
 
 .cylinder-track {
@@ -1178,17 +1183,32 @@ footer {
   .pricing-grid { grid-template-columns: repeat(2,1fr); }
   .events-grid { grid-template-columns: repeat(2,1fr); }
   .cylinder-stage { height: 320px; }
-  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(220px); }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(200px); }
   .cyl-prev { left: -10px; }
   .cyl-next { right: -10px; }
 }
 
 @media (max-width: 700px) {
   .pricing-grid { grid-template-columns: 1fr; }
-  .events-grid { grid-template-columns: repeat(2,1fr); }
-  .cylinder-stage { height: 260px; }
-  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(160px); }
+  .events-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .event-card { aspect-ratio: 16/10; }
+  #core-services { padding: 4rem 1.5rem 5rem; }
+  #events { padding: 4rem 1.5rem; }
+  #pricing { padding: 4rem 1.5rem; }
+  .cylinder-stage { height: 220px; max-width: 100%; }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(100px); }
+  .cyl-btn { width: 38px; height: 38px; font-size: 1.4rem; }
+  .cyl-prev { left: 4px; }
+  .cyl-next { right: 4px; }
   .payment-badges span { font-size: 0.72rem; }
+  .pricing-grid { gap: 1rem; }
+  .pricing-card { padding: 1.5rem 1.2rem; }
+  .ribbon-item { font-size: 0.8rem; }
+}
+
+@media (max-width: 420px) {
+  .cylinder-stage { height: 190px; }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(80px); }
 }
 
 /* ─── Scroll Progress Bar ─── */
@@ -1395,3 +1415,57 @@ footer {
   min-height: 2.5em;
 }
 
+/* ─── Event card cursor ─── */
+.event-card { cursor: pointer; }
+
+/* ─── Lightbox ─── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.93);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 80px rgba(201,168,76,0.25);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.lightbox.open img {
+  transform: scale(1);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 1.6rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+.lightbox-close:hover {
+  background: rgba(201,168,76,0.4);
+  border-color: var(--gold);
+}
