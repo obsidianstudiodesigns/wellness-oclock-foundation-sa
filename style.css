@@ -1074,6 +1074,113 @@ footer {
   margin-top: 0.35rem;
 }
 
+/* ─── Reschedule & Refund Policy ─── */
+#policy {
+  padding: 8rem 2rem;
+  background: var(--charcoal);
+  position: relative;
+}
+#policy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+#policy .container { position: relative; z-index: 2; }
+
+.policy-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.policy-brand img {
+  height: 90px;
+  width: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 6px 24px rgba(201,168,76,0.35));
+}
+
+#policy .section-header h2 { color: #fff; }
+#policy .section-sub { color: rgba(255,255,255,0.6); }
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.policy-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.28);
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem;
+  transition: border-color 0.4s ease, transform 0.4s ease, background 0.4s ease;
+}
+.policy-card:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.07);
+  transform: translateY(-5px);
+}
+
+.policy-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(201,168,76,0.22);
+}
+.policy-icon { font-size: 1.5rem; line-height: 1; }
+.policy-head h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  line-height: 1.2;
+}
+
+.policy-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.policy-card li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+}
+.policy-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: -0.1em;
+  color: var(--gold);
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+.policy-card li strong { color: var(--gold-light); font-weight: 600; }
+.policy-card li em { color: rgba(255,255,255,0.9); }
+
+.policy-footer {
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.22);
+  padding-top: 2rem;
+}
+.policy-footer p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+}
+.policy-footer a {
+  color: var(--gold-light);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(201,168,76,0.4);
+  transition: color 0.3s, border-color 0.3s;
+}
+.policy-footer a:hover { color: #fff; border-color: var(--gold); }
+
 /* ─── Core Services Cylinder ─── */
 #core-services {
   padding: 8rem 2rem;
@@ -1361,6 +1468,7 @@ footer {
   .pricing-grid { grid-template-columns: repeat(2,1fr); }
   .events-grid { grid-template-columns: repeat(2,1fr); }
   .why-grid { grid-template-columns: repeat(2,1fr); }
+  .policy-grid { grid-template-columns: repeat(2,1fr); }
   .cylinder-stage { height: 360px; }
   .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(260px); }
   .cyl-prev { left: 0; }
@@ -1377,6 +1485,12 @@ footer {
   #why-us { padding: 4rem 1.25rem; }
   .why-grid { grid-template-columns: 1fr; gap: 1rem; }
   .why-card { padding: 1.6rem 1.35rem; }
+  #policy { padding: 4rem 1.25rem; }
+  .policy-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .policy-card { padding: 1.6rem 1.35rem; }
+  .policy-brand img { height: 70px; }
+  .policy-head h3 { font-size: 1.18rem; }
+  .policy-card li { font-size: 0.83rem; }
   .medaid-band { padding: 2rem 1.25rem; }
   .medaid-logos span { font-size: 0.75rem; padding: 0.45rem 1.1rem; }
   .about-quote { font-size: 1.1rem; }
