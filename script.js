@@ -212,6 +212,44 @@ function showToast(message) {
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
+/* ─── Cylinder Carousel ─── */
+(function() {
+  const track   = document.getElementById('cylinderTrack');
+  const items   = document.querySelectorAll('.cylinder-item');
+  const dots    = document.querySelectorAll('.cyl-dot');
+  const total   = items.length;
+  let current   = 0;
+  let autoTimer = null;
+
+  function goTo(idx) {
+    items[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + total) % total;
+    items[current].classList.add('active');
+    dots[current].classList.add('active');
+    track.style.transform = `rotateY(${-current * (360 / total)}deg)`;
+  }
+
+  function startAuto() {
+    autoTimer = setInterval(() => goTo(current + 1), 3500);
+  }
+  function stopAuto() { clearInterval(autoTimer); }
+
+  document.getElementById('cylNext').addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
+  document.getElementById('cylPrev').addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { stopAuto(); goTo(+d.dataset.i); startAuto(); }));
+
+  /* touch swipe */
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { stopAuto(); goTo(current + (diff > 0 ? 1 : -1)); startAuto(); }
+  }, { passive: true });
+
+  startAuto();
+})();
+
 /* ─── Parallax on hero (desktop only) ─── */
 const hero = document.getElementById('hero');
 if (window.innerWidth >= 700) {
