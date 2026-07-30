@@ -948,11 +948,11 @@ footer {
 .cylinder-stage {
   position: relative;
   width: 100%;
-  max-width: 680px;
+  max-width: 900px;
   margin: 0 auto;
-  perspective: 1200px;
-  height: 420px;
-  overflow: hidden;
+  perspective: 1400px;
+  height: 440px;
+  overflow: visible;
 }
 
 .cylinder-track {
@@ -1182,10 +1182,10 @@ footer {
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: repeat(2,1fr); }
   .events-grid { grid-template-columns: repeat(2,1fr); }
-  .cylinder-stage { height: 320px; }
-  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(200px); }
-  .cyl-prev { left: -10px; }
-  .cyl-next { right: -10px; }
+  .cylinder-stage { height: 360px; }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(260px); }
+  .cyl-prev { left: 0; }
+  .cyl-next { right: 0; }
 }
 
 @media (max-width: 700px) {
@@ -1195,11 +1195,11 @@ footer {
   #core-services { padding: 4rem 1.5rem 5rem; }
   #events { padding: 4rem 1.5rem; }
   #pricing { padding: 4rem 1.5rem; }
-  .cylinder-stage { height: 220px; max-width: 100%; }
-  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(100px); }
+  .cylinder-stage { height: 240px; max-width: 100%; perspective: 900px; }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(130px); }
   .cyl-btn { width: 38px; height: 38px; font-size: 1.4rem; }
-  .cyl-prev { left: 4px; }
-  .cyl-next { right: 4px; }
+  .cyl-prev { left: 0; }
+  .cyl-next { right: 0; }
   .payment-badges span { font-size: 0.72rem; }
   .pricing-grid { gap: 1rem; }
   .pricing-card { padding: 1.5rem 1.2rem; }
@@ -1207,8 +1207,8 @@ footer {
 }
 
 @media (max-width: 420px) {
-  .cylinder-stage { height: 190px; }
-  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(80px); }
+  .cylinder-stage { height: 200px; perspective: 700px; }
+  .cylinder-item { transform: rotateY(calc(var(--i) * 120deg)) translateZ(100px); }
 }
 
 /* ─── Scroll Progress Bar ─── */
