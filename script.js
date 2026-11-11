@@ -331,3 +331,112 @@ if (window.matchMedia('(pointer:fine)').matches) {
     el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
   });
 }
+
+/* ─── 2027 calendar: autoplaying video + scrollable timeline ─── */
+(() => {
+  const section = document.getElementById('calendar-2027');
+  if (!section) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Video plays (muted, as browsers require) while it is on screen and pauses
+  // when scrolled away. If the visitor pauses it themselves, it stays paused.
+  const video = document.getElementById('calendarVideo');
+  const soundBtn = document.getElementById('calSound');
+  if (video) {
+    let inView = false, userPaused = false;
+    video.addEventListener('pause', () => { if (inView) userPaused = true; });
+    video.addEventListener('play', () => { userPaused = false; });
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView) {
+        if (!userPaused && !reduceMotion) video.play().catch(() => {});
+      } else if (!video.paused) {
+        video.pause();
+      }
+    }, { threshold: 0.5 }).observe(video);
+
+    if (soundBtn) {
+      const syncSound = () => {
+        const on = !video.muted;
+        soundBtn.setAttribute('aria-pressed', on);
+        soundBtn.setAttribute('aria-label', on ? 'Mute video' : 'Turn sound on');
+      };
+      soundBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        if (video.paused) video.play().catch(() => {});
+      });
+      video.addEventListener('volumechange', syncSound);
+      syncSound();
+    }
+  }
+
+  const track = document.getElementById('calTrack');
+  if (!track) return;
+  const months = [...track.querySelectorAll('.cal-month')];
+  const nums = months.map(m => m.querySelector('.cal-num'));
+  const chips = [...section.querySelectorAll('.cal-months button')];
+  const nowEl = document.getElementById('calNow');
+  const bar = document.getElementById('calProgress');
+  const hint = document.getElementById('calHint');
+  let active = -1, ticking = false;
+
+  // fade each month in as it scrolls into the timeline window
+  const monthObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { root: track, threshold: 0.12 });
+  months.forEach(m => monthObserver.observe(m));
+
+  function setActive(i) {
+    active = i;
+    months.forEach((m, j) => m.classList.toggle('is-active', j === i));
+    chips.forEach((c, j) => {
+      c.classList.toggle('is-active', j === i);
+      c.setAttribute('aria-current', j === i ? 'true' : 'false');
+    });
+    nowEl.textContent = months[i].dataset.name;
+    if (!reduceMotion) {
+      nowEl.classList.remove('flip');
+      void nowEl.offsetWidth;   // restart the flip animation
+      nowEl.classList.add('flip');
+    }
+    // keep the active chip visible without moving the page
+    const chip = chips[i], strip = chip.parentElement;
+    strip.scrollTo({ left: chip.offsetLeft - (strip.clientWidth - chip.offsetWidth) / 2, behavior: 'smooth' });
+  }
+
+  function update() {
+    ticking = false;
+    const max = track.scrollHeight - track.clientHeight;
+    const progress = max > 0 ? Math.min(track.scrollTop / max, 1) : 0;
+    bar.style.transform = `scaleY(${progress})`;
+
+    const box = track.getBoundingClientRect();
+    const focusLine = box.top + box.height * 0.35;
+    const mid = box.top + box.height / 2;
+    let idx = 0;
+    months.forEach((m, i) => {
+      const r = m.getBoundingClientRect();
+      if (r.top <= focusLine) idx = i;
+      // month numbers drift against the scroll for a little depth
+      if (!reduceMotion) {
+        const drift = Math.max(-40, Math.min(40, (r.top + r.height / 2 - mid) * -0.12));
+        nums[i].style.transform = `translateY(${drift}px)`;
+      }
+    });
+    if (progress > 0.98) idx = months.length - 1;
+    if (idx !== active) setActive(idx);
+    if (track.scrollTop > 8) hint.classList.add('hide');
+  }
+
+  const requestUpdate = () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  };
+  track.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+
+  chips.forEach((chip, i) => chip.addEventListener('click', () => {
+    track.scrollTo({ top: months[i].offsetTop - 16, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }));
+
+  update();
+})();

@@ -124,7 +124,7 @@
   <!-- ─── Fonts ─── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&family=Archivo+Black&family=Oswald:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -716,24 +716,219 @@
       <div class="section-header reveal fade-up">
         <span class="section-label">Plan Ahead</span>
         <h2>2027 Wellness Events Calendar</h2>
-        <p class="section-sub">A full year of retreats, paint &amp; sip sessions, family days and teen WellCations. Pencil in your dates and book early — spaces fill up fast.</p>
+        <p class="section-sub">A full year of retreats, paint &amp; sip sessions, family days and teen WellCations. Scroll through the year, pencil in your dates and book early — spaces fill up fast.</p>
       </div>
       <div class="calendar-layout">
         <div class="calendar-video reveal fade-right">
-          <video controls playsinline preload="none" poster="2027 Calendar/calendar-video-poster.jpg">
+          <video id="calendarVideo" controls muted loop playsinline preload="none" poster="2027 Calendar/calendar-video-poster.jpg">
             <source src="2027 Calendar/wellness-oclock-2027-calendar.mp4" type="video/mp4" />
           </video>
+          <button type="button" class="cal-sound" id="calSound" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="cal-sound-off" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path class="cal-sound-on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+            <span class="cal-sound-label">Tap for sound</span>
+          </button>
         </div>
-        <div class="calendar-sheet reveal fade-left">
-          <a class="calendar-preview" href="2027 Calendar/wellness-oclock-2027-events-calendar.jpg" target="_blank" rel="noopener">
-            <img src="2027 Calendar/calendar-preview.jpg" alt="Wellness O'clock Foundation SA 2027 Wellness Events Calendar, February to December" loading="lazy" />
-            <span class="calendar-preview-hint">Tap to view the full calendar</span>
-          </a>
-          <div class="calendar-actions">
-            <a href="2027 Calendar/wellness-oclock-2027-events-calendar.jpg" class="btn-primary" target="_blank" rel="noopener">View Full Calendar</a>
-            <a href="2027 Calendar/wellness-oclock-2027-events-calendar.jpg" class="btn-outline-dark" download="Wellness-OClock-2027-Events-Calendar.jpg">Download</a>
+
+        <div class="cal-scroller reveal fade-left">
+          <div class="cal-frame">
+          <div class="cal-top">
+            <div class="cal-brand">
+              <span class="cal-year">2027</span>
+              <span class="cal-script">Wellness Events</span>
+            </div>
+            <div class="cal-now" aria-live="polite">
+              <span class="cal-now-label">Now viewing</span>
+              <span class="cal-now-month" id="calNow">February</span>
+            </div>
           </div>
-          <p class="calendar-note">Ready to book a 2027 event? <a href="#contact">Get in touch</a> or WhatsApp <a href="https://wa.me/27739027279">073 902 7279</a>.</p>
+          <nav class="cal-months" aria-label="Jump to a month"><button type="button" data-month="0">Feb</button><button type="button" data-month="1">Mar</button><button type="button" data-month="2">Apr</button><button type="button" data-month="3">May</button><button type="button" data-month="4">Jun</button><button type="button" data-month="5">Aug</button><button type="button" data-month="6">Sep</button><button type="button" data-month="7">Oct</button><button type="button" data-month="8">Nov</button><button type="button" data-month="9">Dec</button></nav>
+          <div class="cal-body">
+            <div class="cal-progress" aria-hidden="true"><span id="calProgress"></span></div>
+            <div class="cal-track" id="calTrack" tabindex="0" aria-label="2027 events timeline — scroll to move through the year">
+            <article class="cal-month" id="cal-feb" data-name="February">
+              <header class="cal-month-head"><h3>February</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">02</span>
+                <div class="cal-event">
+                  <span class="cal-date">5 Feb</span>
+                  <h4>Colour Me Happy</h4>
+                  <p class="cal-sub">Family Hike / Yoga / Art Picnic</p>
+                  <p class="cal-loc">Witbank Dam</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">13 Feb</span>
+                  <h4>Colour Of Love &amp; Wellness Paint &amp; Sip</h4>
+                  <p class="cal-loc">Witbank (Anew Hotel)</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">26–28 Feb</span>
+                  <h4>Couple Camp WellCation Retreat Weekend</h4>
+                  <p class="cal-loc">Pretoria</p>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-mar" data-name="March">
+              <header class="cal-month-head"><h3>March</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">03</span>
+                <div class="cal-event cal-tour">
+                  <span class="cal-tag">4 provinces</span>
+                  <h4>Pre-Teens &amp; Teens Mental Health WellCation Retreat</h4>
+                  <ul class="cal-dates">
+                    <li><span class="cal-date">19–21 Mar</span><span class="cal-loc">Gauteng</span></li>
+                    <li><span class="cal-date">22–23 Mar</span><span class="cal-loc">North West</span></li>
+                    <li><span class="cal-date">29–31 Mar</span><span class="cal-loc">Mpumalanga</span></li>
+                    <li><span class="cal-date">2–4 Apr</span><span class="cal-loc">Limpopo</span></li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-apr" data-name="April">
+              <header class="cal-month-head"><h3>April</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">04</span>
+                <div class="cal-event">
+                  <span class="cal-date">23–25 Apr</span>
+                  <h4>Adults WellCation Retreat Weekend</h4>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-may" data-name="May">
+              <header class="cal-month-head"><h3>May</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">05</span>
+                <div class="cal-event">
+                  <span class="cal-date">8 May</span>
+                  <h4>Mother's Day Love &amp; Wellness Paint &amp; Sip</h4>
+                  <p class="cal-loc">Witbank (Anew Hotel)</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">28–30 May</span>
+                  <h4>Mom / Dad &amp; Me WellCation Camp</h4>
+                  <p class="cal-loc">Pretoria</p>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-jun" data-name="June">
+              <header class="cal-month-head"><h3>June</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">06</span>
+                <div class="cal-event">
+                  <span class="cal-date">Date TBA</span>
+                  <h4>Family Sip &amp; Paint</h4>
+                  <p class="cal-loc">Witbank (Anew Hotel)</p>
+                </div>
+                <div class="cal-event cal-tour">
+                  <span class="cal-tag">4 provinces</span>
+                  <h4>Pre-Teens &amp; Teens Mental Health WellCation Retreat</h4>
+                  <ul class="cal-dates">
+                    <li><span class="cal-date">25–27 Jun</span><span class="cal-loc">Gauteng</span></li>
+                    <li><span class="cal-date">2–4 Jul</span><span class="cal-loc">North West</span></li>
+                    <li><span class="cal-date">9–11 Jul</span><span class="cal-loc">Limpopo</span></li>
+                    <li><span class="cal-date">16–18 Jul</span><span class="cal-loc">Mpumalanga</span></li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-aug" data-name="August">
+              <header class="cal-month-head"><h3>August</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">08</span>
+                <div class="cal-event">
+                  <span class="cal-date">8 Aug</span>
+                  <h4>Women's Mental Health &amp; Wellness Sip &amp; Paint High Tea</h4>
+                  <p class="cal-loc">Witbank (Anew Hotel)</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">27–29 Aug</span>
+                  <h4>Women's WellCation Retreat Weekend</h4>
+                  <p class="cal-loc">Pretoria</p>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-sep" data-name="September">
+              <header class="cal-month-head"><h3>September</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">09</span>
+                <div class="cal-event cal-tour">
+                  <span class="cal-tag">4 provinces</span>
+                  <h4>Pre-Teens &amp; Teens Mental Health WellCation Retreat</h4>
+                  <ul class="cal-dates">
+                    <li><span class="cal-date">22–24 Sep</span><span class="cal-loc">Mpumalanga</span></li>
+                    <li><span class="cal-date">25–27 Sep</span><span class="cal-loc">Gauteng</span></li>
+                    <li><span class="cal-date">28–30 Sep</span><span class="cal-loc">North West</span></li>
+                    <li><span class="cal-date">1–3 Oct</span><span class="cal-loc">Limpopo</span></li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-oct" data-name="October">
+              <header class="cal-month-head"><h3>October</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">10</span>
+                <div class="cal-event">
+                  <span class="cal-date">23 Oct</span>
+                  <h4>Colour Me Happy</h4>
+                  <p class="cal-sub">Family Hike / Yoga / Art Picnic</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">29–31 Oct</span>
+                  <h4>Adult WellCation Retreat Weekend</h4>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-nov" data-name="November">
+              <header class="cal-month-head"><h3>November</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">11</span>
+                <div class="cal-event">
+                  <span class="cal-date">19–21 Nov</span>
+                  <h4>Couples Camp WellCation Retreat Weekend</h4>
+                  <p class="cal-loc">Pretoria</p>
+                </div>
+                <div class="cal-event">
+                  <span class="cal-date">20 Nov</span>
+                  <h4>Annual Visionary Board Session</h4>
+                </div>
+                <div class="cal-event cal-tour">
+                  <span class="cal-tag">4 provinces</span>
+                  <h4>Pre-Teens &amp; Teens Mental Health WellCation Retreat</h4>
+                  <ul class="cal-dates">
+                    <li><span class="cal-date">26–28 Nov</span><span class="cal-loc">Mpumalanga</span></li>
+                    <li><span class="cal-date">29 Nov – 1 Dec</span><span class="cal-loc">Gauteng</span></li>
+                    <li><span class="cal-date">2–4 Dec</span><span class="cal-loc">North West</span></li>
+                    <li><span class="cal-date">5–7 Dec</span><span class="cal-loc">Limpopo</span></li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+            <article class="cal-month" id="cal-dec" data-name="December">
+              <header class="cal-month-head"><h3>December</h3><span>2027</span></header>
+              <div class="cal-items">
+                <span class="cal-num" aria-hidden="true">12</span>
+                <div class="cal-event">
+                  <span class="cal-date">11 Dec</span>
+                  <h4>Year-End Friendsmas Paint &amp; Sip</h4>
+                </div>
+              </div>
+            </article>
+            <div class="cal-end">
+                <span class="cal-script">See you in 2027!</span>
+                <a href="#contact" class="btn-primary">Book Your Spot</a>
+              </div>
+            </div>
+            <div class="cal-hint" id="calHint" aria-hidden="true">
+              <span class="cal-hint-icon"></span>
+              <span class="cal-hint-fine">Scroll to explore the year</span>
+              <span class="cal-hint-touch">Swipe up to explore the year</span>
+            </div>
+          </div>
+          </div>
+          <div class="calendar-actions">
+            <a href="2027 Calendar/Wellness-OClock-2027-Events-Calendar.png" class="btn-primary" download="Wellness-OClock-2027-Events-Calendar.png">Download Calendar</a>
+            <a href="#contact" class="btn-outline-dark">Book Your Spot</a>
+          </div>
+          <p class="calendar-note">Prefer to chat? WhatsApp <a href="https://wa.me/27739027279">073 902 7279</a> to reserve your place.</p>
         </div>
       </div>
     </div>
