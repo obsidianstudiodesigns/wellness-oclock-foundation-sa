@@ -1576,6 +1576,160 @@ footer {
   text-align: center;
 }
 
+.events-ahead {
+  text-align: center;
+  margin-top: 2.5rem;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+.events-ahead a {
+  color: var(--gold-dark);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.3s, color 0.3s;
+}
+.events-ahead a:hover { color: var(--brown); border-color: var(--gold); }
+
+/* ─── 2027 Events Calendar ─── */
+#calendar-2027 {
+  padding: 8rem 2rem;
+  background: var(--cream);
+}
+
+/* video and calendar share one height so the two columns line up */
+.calendar-layout {
+  --cal-h: 640px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.calendar-video {
+  width: calc(var(--cal-h) * 9 / 16);
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #F7E7DA;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.calendar-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.calendar-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.calendar-preview {
+  position: relative;
+  display: block;
+  height: calc(var(--cal-h) - 120px);
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: #F7E7DA;
+  cursor: zoom-in;
+}
+.calendar-preview img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+  transform-origin: top center;
+}
+.calendar-preview:hover img { transform: scale(1.03); }
+/* fade the cut-off bottom of the poster into the hint label */
+.calendar-preview::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to bottom, rgba(247,231,218,0) 0%, rgba(247,231,218,0.92) 70%, #F7E7DA 100%);
+  pointer-events: none;
+}
+.calendar-preview-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  background: var(--brown);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.3s;
+}
+.calendar-preview:hover .calendar-preview-hint { background: var(--gold-dark); }
+
+.calendar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.calendar-actions a { text-align: center; }
+
+.btn-outline-dark {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  border: 2px solid var(--brown);
+  color: var(--brown);
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+.btn-outline-dark:hover {
+  background: var(--brown);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.calendar-note {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+.calendar-note a {
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+.calendar-note a:hover { color: var(--brown); }
+
+@media (max-width: 900px) {
+  .calendar-layout { --cal-h: 560px; gap: 1.75rem; }
+}
+
+@media (max-width: 700px) {
+  #calendar-2027 { padding: 4rem 1.25rem; }
+  .calendar-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .calendar-video {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .calendar-preview { height: 460px; }
+  .calendar-actions a { flex: 1 1 100%; padding: 0.8rem 1.2rem; font-size: 0.8rem; }
+}
+
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: repeat(2,1fr); }
   .events-grid { grid-template-columns: repeat(2,1fr); }
